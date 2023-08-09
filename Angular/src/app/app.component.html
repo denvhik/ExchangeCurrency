@@ -1,0 +1,27 @@
+<div>
+  <h2>Currency Converter</h2>
+  <div>
+    <label for="sourceCurrency">Source Currency:</label>
+    <select id="sourceCurrency" [(ngModel)]="sourceCurrency">
+      <option value="UAH">UAH</option>
+      <option value="EUR">EUR</option>
+      <option value="USD">USD</option>
+    </select>
+  </div>
+  <div>
+    <label for="amount">Amount:</label>
+    <input type="number" id="amount" [(ngModel)]="amount" />
+  </div>
+  <div>
+    <label for="targetCurrency">Target Currency:</label>
+    <select id="targetCurrency" [(ngModel)]="targetCurrency">
+      <option value="UAH">UAH</option>
+      <option value="EUR">EUR</option>
+      <option value="USD">USD</option>
+    </select>
+  </div>
+  <button (click)="convertCurrency()">Convert</button>
+  <div *ngIf="convertedAmount !== undefined">
+    <p>Converted Amount: {{ convertedAmount }} </p>
+  </div>
+</div>
