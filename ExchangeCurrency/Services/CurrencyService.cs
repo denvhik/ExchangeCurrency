@@ -15,14 +15,16 @@ namespace ExchangeCurrency.Services
         private readonly IHttpClientFactory _httpClientFactory;
         private readonly IValidator<CurrencyModel> _validator;
         private readonly CurrencyModel _currencyModel;
-        public CurrencyService(IHttpClientFactory httpClientFactory, IValidator<CurrencyModel> validator, CurrencyModel currencyModel)
+        public CurrencyService(IHttpClientFactory httpClientFactory, IValidator<CurrencyModel> validator)
         {
             _httpClientFactory = httpClientFactory;
             _validator = validator;
-            _currencyModel = currencyModel;
         }
         
-      
+        public CurrencyService(CurrencyModel currencyModel)
+        {
+            _currencyModel = currencyModel;
+        }
         public async Task<decimal> ConvertCurrency(string sourceCurrency, decimal amount, string targetCurrency)
         {
             var validationResult = _validator.Validate(new CurrencyModel

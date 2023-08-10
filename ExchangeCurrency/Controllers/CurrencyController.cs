@@ -21,6 +21,7 @@ namespace ExchangeCurrency.Controllers
         {
             try
             {
+                
                 var convertedAmount = await _iCurrency.ConvertCurrency(currencyModel.SourceCurrency, currencyModel.Amount, currencyModel.TargetCurrency);
                 return Ok(convertedAmount);
             }
