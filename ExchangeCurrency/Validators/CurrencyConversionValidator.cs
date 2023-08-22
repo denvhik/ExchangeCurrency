@@ -22,7 +22,7 @@ namespace ExchangeCurrency.Validator
         private bool BeAValidCurrency(string currency)
         {
             var validCurrencies = new[] { "USD", "UAH", "EUR" };
-            return validCurrencies.Contains(currency);
+            return validCurrencies.Contains(currency.ToUpper());
         }
     }
     
