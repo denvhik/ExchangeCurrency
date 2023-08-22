@@ -10,7 +10,7 @@ using FluentValidation;
 
 namespace ExchangeCurrency.Services
 {
-    public class CurrencyService : ICurrency
+    public class CurrencyService : ICurrencyConvertor
     {
         private readonly IHttpClientFactory _httpClientFactory;
         private readonly IValidator<CurrencyModel> _validator;
@@ -20,11 +20,7 @@ namespace ExchangeCurrency.Services
             _httpClientFactory = httpClientFactory;
             _validator = validator;
         }
-        
-        public CurrencyService(CurrencyModel currencyModel)
-        {
-            _currencyModel = currencyModel;
-        }
+
         public async Task<decimal> ConvertCurrency(string sourceCurrency, decimal amount, string targetCurrency)
         {
             var validationResult = _validator.Validate(new CurrencyModel
@@ -55,14 +51,11 @@ namespace ExchangeCurrency.Services
                 var rateValue = rate.Value.GetDecimal();
                 exchangeRates[currency] = rateValue;
             }         
-            var validCurrencies = new List<string> { "UAH", "USD", "EUR" };
+
             var sourceCurrencyUpper = sourceCurrency.ToUpper();
             var targetCurrencyUpper = targetCurrency.ToUpper();
 
-            if (!validCurrencies.Contains(sourceCurrencyUpper) || !validCurrencies.Contains(targetCurrencyUpper))
-            {
-                throw new ArgumentException("Invalid currency codes. Only UAH, USD, and EUR are allowed.");
-            }
+
 
             if (exchangeRates.ContainsKey(sourceCurrencyUpper) && exchangeRates.ContainsKey(targetCurrencyUpper))
             {

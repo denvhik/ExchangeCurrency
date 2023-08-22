@@ -9,15 +9,15 @@ namespace ExchangeCurrency.Controllers
     [Route("api/[controller]")]
     public class CurrencyConversionController : ControllerBase
     {
-        private readonly ICurrency _iCurrency;
+        private readonly ICurrencyConvertor _iCurrency;
 
-        public CurrencyConversionController(ICurrency iCurrency)
+        public CurrencyConversionController(ICurrencyConvertor iCurrency)
         {
             _iCurrency = iCurrency;
         }
 
         [HttpPost("Exchange")]
-        public async Task<ActionResult<decimal>> ConvertCurrency([FromBody] CurrencyModel currencyModel)
+        public async Task<ActionResult<decimal>> ConvertCurrency( CurrencyModel currencyModel)
         {
             try
             {
