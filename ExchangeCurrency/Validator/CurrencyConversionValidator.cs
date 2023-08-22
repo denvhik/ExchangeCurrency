@@ -15,7 +15,7 @@ namespace ExchangeCurrency.Validator
           
 
         }
-        
+      
     }
     
 }

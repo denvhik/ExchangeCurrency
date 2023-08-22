@@ -40,7 +40,7 @@ namespace ExchangeCurrency.Services
             }
 
             var client = _httpClientFactory.CreateClient();
-            var response = await client.GetStringAsync("https://api.fastforex.io/fetch-all?api_key=3ddd8f5cf1-3defc33746-rz4ky3");
+            var response = await client.GetStringAsync("https://api.fastforex.io/fetch-all?api_key=fd1ff3baec-976e3f9845-rzsk3b");
 
             var jsonObject = JsonDocument.Parse(response).RootElement;
             var results = jsonObject.GetProperty("results");
@@ -54,10 +54,15 @@ namespace ExchangeCurrency.Services
                 var currency = rate.Name;
                 var rateValue = rate.Value.GetDecimal();
                 exchangeRates[currency] = rateValue;
-            }
-           
+            }         
+            var validCurrencies = new List<string> { "UAH", "USD", "EUR" };
             var sourceCurrencyUpper = sourceCurrency.ToUpper();
             var targetCurrencyUpper = targetCurrency.ToUpper();
+
+            if (!validCurrencies.Contains(sourceCurrencyUpper) || !validCurrencies.Contains(targetCurrencyUpper))
+            {
+                throw new ArgumentException("Invalid currency codes. Only UAH, USD, and EUR are allowed.");
+            }
 
             if (exchangeRates.ContainsKey(sourceCurrencyUpper) && exchangeRates.ContainsKey(targetCurrencyUpper))
             {

@@ -16,7 +16,7 @@ namespace ExchangeCurrency.Controllers
             _iCurrency = iCurrency;
         }
 
-        [HttpPost]
+        [HttpPost("Exchange")]
         public async Task<ActionResult<decimal>> ConvertCurrency([FromBody] CurrencyModel currencyModel)
         {
             try
